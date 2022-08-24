@@ -33,6 +33,35 @@ url = "https://bar"
 sha512 = "123456"
 ```
 
+The `bundle-*` keys on `external-files` are a group of optional modifiers
+and are used to untar an upstream external file archive,
+vendor any dependent code, and bundle it back up to be consumed.
+All three options are required when bundling an archive's dependences.
+
+`bundle-modules` is a list of module "paradigms" the external-file should
+be vendored through. For example, if a project contains a go.mod and go.sum file,
+"go" may be entered to vendor the dependencies.
+Currently, only "go" is supported.
+
+`bundle-path` is the filepath _within_ the archive that contains the module.
+So, for example, given a go project that has the necessary go.mod and go.sum
+files within the archive located at the filepath a/b/c,
+this `bundle-path` value should be `a/b/c`.
+
+`bundle-output-path` is the path of the output tar archive.
+This name may be referenced within a spec, when creating a package, etc.
+For example, `my-package-bundled.tar.gz` may be entered as an output path
+indicating the package is "bundled" and has been archived.
+```
+[[package.metadata.build-package.external-files]]
+path = "foo"
+url = "https://foo"
+sha512 = "abcdef"
+bundle-modules = [ "go" ]
+bundle-path = "path/to/module/"
+bundle-output-path = "path/to/output.tar.gz"
+```
+
 `package-name` lets you override the package name in Cargo.toml; this is useful
 if you have a package with "." in its name, for example, which Cargo doesn't
 allow.  This means the directory name and spec file name can use your preferred
@@ -352,6 +381,9 @@ pub(crate) struct ExternalFile {
     pub(crate) path: Option<PathBuf>,
     pub(crate) sha512: String,
     pub(crate) url: String,
+    pub(crate) bundle_modules: Option<Vec<String>>,
+    pub(crate) bundle_path: Option<PathBuf>,
+    pub(crate) bundle_output_path: Option<PathBuf>,
 }
 
 impl fmt::Display for SupportedArch {

@@ -10,10 +10,12 @@ The implementation is closely tied to the top-level Dockerfile.
 */
 mod builder;
 mod cache;
+mod gomod;
 mod manifest;
 mod project;
 mod spec;
 
+use crate::gomod::GoMod;
 use builder::{PackageBuilder, VariantBuilder};
 use cache::LookasideCache;
 use manifest::{ManifestInfo, SupportedArch};
@@ -41,6 +43,10 @@ mod error {
 
         ExternalFileFetch {
             source: super::cache::error::Error,
+        },
+
+        GoMod {
+            source: super::gomod::error::Error,
         },
 
         ProjectCrawl {
@@ -143,6 +149,18 @@ fn build_package() -> Result<()> {
 
     if let Some(files) = manifest.external_files() {
         LookasideCache::fetch(files).context(error::ExternalFileFetchSnafu)?;
+        for f in files {
+            if f.bundle_modules.is_none() {
+                continue;
+            }
+
+            for b in f.bundle_modules.as_ref().unwrap() {
+                println!("cargo:rerun-if-changed={:?}", f.bundle_output_path);
+                if b == "go" {
+                    GoMod::vendor(&root_dir, &manifest_dir, f).context(error::GoModSnafu)?;
+                }
+            }
+        }
     }
 
     if let Some(groups) = manifest.source_groups() {
