@@ -113,6 +113,7 @@ featureGates:
   CSIMigration: true
   CSIMigrationAWS: true
   CSIMigrationvSphere: true
+  KubeletCredentialProviders: true
 protectKernelDefaults: true
 serializeImagePulls: false
 serverTLSBootstrap: {{settings.kubernetes.server-tls-bootstrap}}

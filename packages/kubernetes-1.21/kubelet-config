@@ -111,6 +111,7 @@ runtimeRequestTimeout: 15m
 featureGates:
   RotateKubeletServerCertificate: true
   CSIMigration: false
+  KubeletCredentialProviders: true
 protectKernelDefaults: true
 serializeImagePulls: false
 serverTLSBootstrap: {{settings.kubernetes.server-tls-bootstrap}}

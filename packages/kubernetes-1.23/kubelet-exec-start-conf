@@ -17,6 +17,8 @@ ExecStart=/usr/bin/kubelet \
     --network-plugin cni \
     --root-dir /var/lib/kubelet \
     --cert-dir /var/lib/kubelet/pki \
+    --image-credential-provider-bin-dir /usr/libexec/kubernetes/kubelet-plugins/credential-providers \
+    --image-credential-provider-config /etc/kubernetes/credential-provider-config.yaml \
     --node-ip ${NODE_IP} \
     --node-labels "${NODE_LABELS}" \
     --register-with-taints "${NODE_TAINTS}" \
