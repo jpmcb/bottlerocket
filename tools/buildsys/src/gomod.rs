@@ -44,12 +44,12 @@ impl GoMod {
             .bundle_output_path
             .as_ref()
             .context(error::OutputDirSnafu)?;
-        let output_path = package_dir.join(output_path_arg);
+        // let output_path = package_dir.join(output_path_arg);
 
         // Return early if the output path exists and is a file, assuming it's already been built
-        if output_path.exists() && output_path.is_file() {
-            return Ok(());
-        }
+        // if output_path.exists() && output_path.is_file() {
+        //    return Ok(());
+        // }
 
         // Our SDK and toolchain are picked by the external `cargo make` invocation.
         let sdk = getenv("BUILDSYS_SDK_IMAGE")?;
@@ -78,7 +78,8 @@ impl GoMod {
                 export GOPROXY={goproxy} &&
                 export GOSUMDB={gosumdb} &&
                 export GOPRIVATE={goprivate} &&
-                go list -mod=readonly ./... >/dev/null && go mod vendor &&
+                go list -mod=readonly ./... >/dev/null && rm -fr vendor &&
+                go mod tidy &&
                 popd &&
                 tar czf {output} {moddir} && 
                 rm -rf {moddir}",

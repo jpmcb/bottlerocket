@@ -18,6 +18,7 @@ dependencies = [
  "docker-engine",
  "docker-init",
  "docker-proxy",
+ "ecr-credential-provider",
  "iputils",
  "kernel-5_15",
  "login",
@@ -281,6 +282,10 @@ dependencies = [
  "glibc",
  "util-linux",
 ]
+
+[[package]]
+name = "ecr-credential-provider"
+version = "0.1.0"
 
 [[package]]
 name = "ecs-agent"

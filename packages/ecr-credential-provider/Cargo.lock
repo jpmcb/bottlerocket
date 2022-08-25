@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "ecr-credential-helper"
+name = "ecr-credential-provider"
 version = "0.1.0"

@@ -11,7 +11,8 @@ Release: 1%{?dist}
 Summary: Container image registry credential provider for AWS ECR
 License: Apache-2.0
 URL: https://github.com/kubernetes/cloud-provider-aws
-Source0: https://%{goimport}/archive/v%{gover}/v%{gover}.tar.gz
+#Source0: https://%{goimport}/archive/v%{gover}/v%{gover}.tar.gz
+Source0: https://%{goimport}/archive/refs/tags/v%{gover}.tar.gz
 
 #BuildRequires: %{_cross_os}glibc-devel
 
@@ -25,8 +26,9 @@ Source0: https://%{goimport}/archive/v%{gover}/v%{gover}.tar.gz
 %build
 %cross_go_configure %{goimport}
 export CGO_LDFLAGS="-Wl,-z,now"
+#export GO_LDFLAGS="-w -s -X k8s.io/component-base/version.gitVersion='v1.23.1'"
 make ecr-credential-provider
-# go build -ldflags="${GOLDFLAGS}" -o nvidia-device-plugin ./cmd/nvidia-device-plugin/
+#go build -trimpath -ldflags="${GO_LDFLAGS}" -o ecr-credential-provider ./cmd/ecr-credential-provider/*.go
 
 %install
 install -d %{buildroot}%{_cross_bindir}
