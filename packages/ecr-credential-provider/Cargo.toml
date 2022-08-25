@@ -13,10 +13,10 @@ releases-url = "https://github.com/kubernetes/cloud-provider-aws/releases"
 
 [[package.metadata.build-package.external-files]]
 url = "https://github.com/kubernetes/cloud-provider-aws/archive/45289e33c0fde6b6779cb80b60f6896354c9a860/v1.22.3.tar.gz"
-sha512 = "7744d7f6f44caa66ece8a8aa099a3a9fa0e8953e52dfb0c6e32e812ce3ced80a29723089ebe06f30999afa7ed8bd7e27880332dd830fd6edcf22349140448b61"
+sha512 = "58c7e06d72356076004f92653e1b4ca52db97ddb9504ee902db2dc30a1fb0e6dd9880a15834964139402e87c738245727e438f4d182fdce920b37dd2b249439d"
 bundle-modules = [ "go" ]
-bundle-path = "cloud-provider-aws-1.22.3"
-bundle-output-path = "ecr-credential-provider-45289e3-bundled.tar.gz"
+bundle-path = "cloud-provider-aws-45289e33c0fde6b6779cb80b60f6896354c9a860"
+bundle-output-path = "cloud-provider-aws-45289e3-bundled.tar.gz"
 
 [build-dependencies]
 #glibc = { path = "../glibc" }

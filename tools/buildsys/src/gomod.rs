@@ -78,8 +78,7 @@ impl GoMod {
                 export GOPROXY={goproxy} &&
                 export GOSUMDB={gosumdb} &&
                 export GOPRIVATE={goprivate} &&
-                go list -mod=readonly ./... >/dev/null && rm -fr vendor &&
-                go mod tidy &&
+                go list -mod=readonly ./... >/dev/null && go mod vendor &&
                 popd &&
                 tar czf {output} {moddir} && 
                 rm -rf {moddir}",
