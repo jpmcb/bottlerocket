@@ -1,0 +1,19 @@
+[package]
+name = "ecr-credential-helper"
+version = "0.1.0"
+edition = "2018"
+publish = false
+build = "build.rs"
+
+[lib]
+path = "pkg.rs"
+
+[package.metadata.build-package]
+releases-url = "https://github.com/kubernetes/cloud-provider-aws/releases"
+
+[[package.metadata.build-package.external-files]]
+url = "https://github.com/kubernetes/cloud-provider-aws/archive/refs/tags/v1.22.3.tar.gz"
+sha512 = "7744d7f6f44caa66ece8a8aa099a3a9fa0e8953e52dfb0c6e32e812ce3ced80a29723089ebe06f30999afa7ed8bd7e27880332dd830fd6edcf22349140448b61"
+
+[build-dependencies]
+#glibc = { path = "../glibc" }
